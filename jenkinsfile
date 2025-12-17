@@ -1,0 +1,41 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Clone') {
+      steps {
+        git 'https://github.com/devopscloud-java/devops-project.git'
+      }
+    }
+
+    stage('Build Image') {
+      steps {
+        sh 'docker build -t yellammam/html-app:latest .'
+      }
+    }
+
+    stage('Push Image') {
+      steps {
+        withCredentials([usernamePassword(
+          credentialsId: 'dockerhub-creds',
+          usernameVariable: 'USER',
+          passwordVariable: 'PASS'
+        )]) {
+          sh '''
+          echo $PASS | docker login -u $USER --password-stdin
+          docker push yellammam/html-app:latest
+          '''
+        }
+      }
+    }
+
+    stage('Deploy to EKS') {
+      steps {
+        sh '''
+        kubectl apply -f deployment.yaml
+        kubectl apply -f service.yaml
+        '''
+      }
+    }
+  }
+}
