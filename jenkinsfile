@@ -10,7 +10,7 @@ pipeline {
 
     stage('Build Image') {
       steps {
-        sh 'docker build -t yellammam/html-app:latest .'
+        sh 'docker build -t yellammam/test:latest .'
       }
     }
 
@@ -23,7 +23,7 @@ pipeline {
         )]) {
           sh '''
           echo $PASS | docker login -u $USER --password-stdin
-          docker push yellammam/html-app:latest
+          docker push yellammam/test:latest
           '''
         }
       }
