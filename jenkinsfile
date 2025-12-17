@@ -43,6 +43,7 @@ tools {
                 kubectl get nodes
                 '''
             }
+}
     stage('Deploy to EKS') {
       steps {
         sh '''
