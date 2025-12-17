@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: html-container
-        image: <dockerhub-username>/html-app:latest
+        image: yellammam/test:latest
         ports:
         - containerPort: 80
