@@ -48,6 +48,7 @@ pipeline {
             steps {
                 sh '''
                 aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
+                export KUBECONFIG=/var/lib/jenkins/.kube/config
                 kubectl get nodes
                 '''
             }
