@@ -1,11 +1,13 @@
 pipeline {
   agent any
+environment {
+        AWS_REGION = 'us-east-1'
+        CLUSTER_NAME = 'eks-cluster'
+    }
 tools {
         git 'git' // should match the name in Global Tool Configuration
     }
-environment {
-    KUBECONFIG = '/home/jenkins/.kube/config'
-}
+
 
   stages {
     stage('Clone') {
