@@ -36,7 +36,13 @@ tools {
         }
       }
     }
-
+    stage('Setup kubeconfig') {
+            steps {
+                sh '''
+                aws eks update-kubeconfig --region $AWS_REGION --name $CLUSTER_NAME
+                kubectl get nodes
+                '''
+            }
     stage('Deploy to EKS') {
       steps {
         sh '''
