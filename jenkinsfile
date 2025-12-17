@@ -3,6 +3,10 @@ pipeline {
 tools {
         git 'git' // should match the name in Global Tool Configuration
     }
+environment {
+    KUBECONFIG = '/home/jenkins/.kube/config'
+}
+
   stages {
     stage('Clone') {
       steps {
